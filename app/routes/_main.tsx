@@ -1,16 +1,18 @@
-import { Link, Outlet } from "react-router";
-import { Home, Briefcase, Users, User, Mail } from "lucide-react";
+import { Link, Outlet, useLocation } from "react-router";
+import { Home, SquareCheck, Users, User, Mail } from "lucide-react";
 
 export default function Main() {
   const leftItems = [
     { icon: Home, label: "Home", to: "/" },
-    { icon: Briefcase, label: "Tasks", to: "/tasks" },
+    { icon: SquareCheck, label: "Tasks", to: "/tasks" },
   ];
 
   const rightItems = [
     { icon: Users, label: "Groups", to: "/groups" },
     { icon: User, label: "Profile", to: "/profile" },
   ];
+
+  const location = useLocation();
 
   return (
     <div className="flex flex-col bg-[#EFEFEF] min-h-screen overflow-hidden">
@@ -44,7 +46,9 @@ export default function Main() {
                   to={item.to}
                   className="flex flex-col items-center justify-center"
                 >
-                  <Icon className="w-7 h-7 text-black" />
+                  <Icon
+                    className={`w-7 h-7 ${location.pathname == item.to ? "text-primary" : "text-black"}`}
+                  />
                 </Link>
               );
             })}
@@ -59,20 +63,19 @@ export default function Main() {
                   to={item.to}
                   className="flex flex-col items-center justify-center"
                 >
-                  <Icon className="w-7 h-7 text-black" />
+                  <Icon
+                    className={`w-7 h-7 ${location.pathname == item.to ? "text-primary" : "text-black"}`}
+                  />
                 </Link>
               );
             })}
           </div>
 
-          <Link
-            to="/inbox"
-            className="absolute left-1/2 transform -translate-x-1/2 -top-5"
-          >
+          <div className="absolute left-1/2 transform -translate-x-1/2 -top-5">
             <div className="w-18 h-18 rounded-full bg-primary flex items-center justify-center shadow-lg">
               <Mail className="w-8 h-8 text-white" />
             </div>
-          </Link>
+          </div>
         </div>
       </div>
     </div>
